@@ -9,7 +9,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css" rel="stylesheet">
+ <style>
+    /* Floating Button Style */
+    #floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6723C9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Iframe Style for Botpress Webchat */
+    iframe {
+      position: fixed;
+      bottom: 60px; /* Adjust to ensure it doesn't overlap with the button */
+      right: 20px;
+      width: 360px;
+      height: 600px;
+      border: none;
+      display: none; /* Hidden by default */
+      z-index: 9999;
+    }
+  </style>
 </head>
 
 <body>
@@ -337,55 +364,28 @@
         <p class="copyright">Created By@ Abdalah Nasr .</p>
     </footer>
 <!--     chatbot -->
-     <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
-  <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
-  <script defer>
-    window.botpress.on('*', (event) => {
-      Toastify({ text: `Event: ${event.type}` }).showToast();
-    });
+    <!-- Floating Button to Toggle Chatbot -->
+  <button id="floating-btn">💬</button>
 
-    window.botpress.on('webchat:ready', (conversationId) => {
-      Toastify({ text: 'Webchat Ready' }).showToast();
-    });
+  <!-- Chatbot iframe (Botpress Webchat) -->
+  <iframe id="chatbot" 
+    
+  src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2024/12/12/15/20241212155907-CPG6ZHB4.json">
+    
+  </iframe>
 
-    window.botpress.on('webchat:opened', (conversationId) => {
-      Toastify({ text: 'Webchat Opened' }).showToast();
-    });
+  <script>
+    // Get the floating button and iframe
+    const floatingBtn = document.getElementById('floating-btn');
+    const iframe = document.getElementById('chatbot');
 
-    window.botpress.on('webchat:closed', (conversationId) => {
-      Toastify({ text: `Webchat Closed` }).showToast();
-    });
-
-    window.botpress.on('conversation', (conversationId) => {
-      Toastify({ text: `Conversation: ${conversationId}` }).showToast();
-    });
-
-    window.botpress.on('message', (message) => {
-      Toastify({ text: `Message Received: ${message.id}` }).showToast();
-    });
-
-    window.botpress.on('messageSent', (message) => {
-      Toastify({ text: `Message Sent: ${message}` }).showToast();
-    });
-
-    window.botpress.on('error', (error) => {
-      Toastify({ text: `Error: ${error}` }).showToast();
-    });
-
-    window.botpress.on('webchatVisibility', (visibility) => {
-      Toastify({ text: `Visibility: ${visibility}` }).showToast();
-    });
-
-    window.botpress.on('webchatConfig', (visibility) => {
-      Toastify({ text: 'Webchat Config' }).showToast();
-    });
-
-    window.botpress.on('customEvent', (anyEvent) => {
-      Toastify({ text: 'Received a custom event' }).showToast();
+    // Toggle iframe visibility on button click
+    floatingBtn.addEventListener('click', function() {
+      // Toggle iframe visibility
+      iframe.style.display = (iframe.style.display === 'none' || iframe.style.display === '') ? 'block' : 'none';
     });
   </script>
-  <script src="https://mediafiles.botpress.cloud/26a83f89-ace1-4045-92ba-95b836f75669/webchat/v2/config.js"
-    defer></script>
+
 <!--     end -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"
         integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g=="
